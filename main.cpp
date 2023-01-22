@@ -275,7 +275,7 @@ public:
 		
 		for(auto v: buff){
 			for(auto c : v)cout << (c == ' ' ? '-' : c);
-			cout << '\n';
+			if(!v.empty())cout << '\n';
 		}
 		getch();
 	}
