@@ -4,7 +4,7 @@ using namespace std;
 
 const int SIZE_OF_BOARD = 11;
 const float EASY_POSIBILITY, MEDIUM_POSIBILITY, HARD_POSIBILITY; 
-inline void print(char c, )
+inline void print(char c, int cnt)while(cnt--)cout << c;
 
 class game
 {
