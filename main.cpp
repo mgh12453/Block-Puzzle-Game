@@ -247,9 +247,9 @@ public:
 		vector<char> buff[4];
 		fill(buff, buff+4, vector<char>(n, ' '));
 		for(auto p : next_block)//cout << p.first << ' ' << p.second << '\n';
-			buff[p.first][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
+			buff[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
 		for(int i = 0; i < 4; i ++){
-			if(i != 0)print(' ', 11);
+			if(i != 2)print(' ', 11);
 			else cout << "Next block:";	
 			for(char x : buff[i])
 				cout << (x == '-' ? ' ' : x);
@@ -272,8 +272,12 @@ public:
 			cout << '\n';
 		}
 		print(' ', 23+n); print('~', 13); print(' ', 4); print('~', 19); cout << '\n'; 
+		
+		for(auto v: game::buff){
+			for(auto c : v)cout << (c == ' ' ? '-' : c);
+			cout << '\n';
+		}
 		getch();
-		cout << '\n';
 	}
 
 	void display (){
