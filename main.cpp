@@ -8,14 +8,46 @@ inline void print(char c, int cnt)while(cnt--)cout << c;
 
 class block {
 private:
-	vector <vector <pair <int, int> > 	 simple;
-	vector <vector <pair <int, int> > 	average;
-	vector <vector <pair <int, int> > difficult;
-public:	
-	block(){
-		
-	}
-}
+    vector <vector <pair <int, int> > > simple;
+    vector <vector <pair <int, int> > > medium;
+    vector <vector <pair <int, int> > >   hard;
+public: 
+    block(){
+        int sz = (SIZE_OF_BOARD - 1) / 2;
+        simple.push_back ({{0, sz}});
+
+        simple.push_back ({{0, sz}, {1, sz}});
+        simple.push_back ({{0, sz}, {0, sz+1}});
+        
+        simple.push_back ({{0, sz}, {0, sz+1}, {1, sz}, {1, sz+1}});
+
+        medium.push_back ({{0, sz+1}, {1, sz}, {1,sz+1}});
+        medium.push_back ({{0, sz}, {1, sz}, {1,sz+1}});
+        medium.push_back ({{0, sz}, {0, sz+1}, {1,sz}});
+        medium.push_back ({{0, sz}, {0, sz+1}, {1,sz+1}});
+       
+        medium.push_back ({{0, sz}, {1, sz}, {2, sz}});
+        medium.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}});
+
+        medium.push_back ({{0, sz}, {1, sz}, {2, sz}, {3, sz}});
+        medium.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}, {0, sz+2}});
+
+        hard.push_back ({{0, sz-1}, {0, sz}, {1, sz}, {1, sz+1}});
+        hard.push_back ({{0, sz}, {0, sz+1}, {1, sz}, {1, sz-1}});
+        hard.push_back ({{0, sz}, {1, sz}, {1, sz+1}, {2, sz+1}});
+        hard.push_back ({{0, sz+1}, {1, sz}, {1, sz+1}, {2, sz}});
+
+        hard.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}, {1, sz}});
+        hard.push_back ({{0, sz}, {1, sz-1}, {1, sz}, {1, sz+1}});
+        hard.push_back ({{0, sz+1}, {1, sz}, {1, sz+1}, {2, sz+1}});
+        hard.push_back ({{0, sz}, {1, sz}, {1, sz+1}, {2, sz}});
+
+        hard.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}, {1, sz-1}});
+        hard.push_back ({{0, sz-1}, {1, sz-1}, {1, sz}, {1, sz+1}});
+        hard.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}, {1, sz+1}});
+        hard.push_back ({{0, sz+1}, {1, sz-1}, {1, sz}, {1, sz+1}});
+    }
+};
 
 class game
 {
