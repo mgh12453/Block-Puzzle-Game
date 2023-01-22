@@ -7,8 +7,10 @@ class game
 private:
 	vector<vector<char>> buff;
 	int size;
+	int status = 0;
 public:
 	game(int init_size = 11){
+		status = 0;
 		size = init_size;
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(' ', size));
@@ -41,13 +43,16 @@ public:
 	}
 
 	void display (){
-
+		if(status == 0)display_main_menu();
+		if(status == 1)display_choose_menu();
+		if(status == 2)start();
 	}
-};
+
+	int get_status(){
+		return	status;
+	}
 
 
-class menu
-{
 	void display_main_menu(){
 
 	}
