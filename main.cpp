@@ -35,7 +35,7 @@ int rnd(int r){
     return (rand()%r);
 }
 
-vector< pair< int , int > > get_random_block(){
+block get_random_block(){
     vector <block> simple;
     vector <block> medium;
     vector <block>   hard;
