@@ -134,27 +134,28 @@ public:
 
 	void display_difficulty_menu(){
 		clrscr();
-		print('*', 29);	
+		print('~', 29);	
 		cout << "\n*"; print(' ', 27); cout << "*\n";
 		cout << "* Please select difficulty: *\n";
-		cout << "*  (1)Default               *\n";
-		cout << "*  (2)Custom                *\n";	
+		cout << "*  Default             (1)  *\n";
+		cout << "*  Custom              (2)  *\n";	
 		cout << '*'; print(' ', 27);  cout << "*\n";
-		print('*', 29); cout << '\n';
-		while(1){
-			char c;
-			c = getch();
-			if(c == '1'){
-				clrscr();
-				print('*', 35);
-				cout << "\n*  Settings applied succsesfully  *" << endl;
-				print('*', 35); cout << endl;
-				sleep(1);
-				clrscr();
-				break;
-			}
-			else if(c == 2){
-				cout << "Please enter posibilities (<easy>, <medium>, <hard>) and size of board.";
+		print('~', 29); cout << '\n';
+		char c;
+		c = getch();
+		if(c == '1'){
+			clrscr();
+			print('~', 35);
+			cout << "\n*  Settings applied succsesfully  *" << endl;
+			print('~', 35); cout << endl;
+			sleep(1);
+			clrscr();
+		}
+		else if(c == '2'){
+			bool clr = true;
+			while(1){
+				if(clr)clrscr();
+				cout << "Please enter posibilities (<easy>, <medium>, <hard>) and size of board:\n";
 				float a, b, c;
 				int x;
 				cin >> a >> b >> c >> x;
@@ -162,20 +163,20 @@ public:
 					EASY_POSIBILITY = a; MEDIUM_POSIBILITY = b; HARD_POSIBILITY = c;
 					SIZE_OF_BOARD = x;
 					clrscr();
-					print('*', 35);
+					print('~', 35);
 					cout << "\n*  Settings applied succsesfully  *" << endl;
-					print('*', 35); cout << endl;
+					print('~', 35); cout << endl;
 					sleep(1);
 					clrscr();
 					break;
 				}
-			}
-			else {
-				clrscr();
-				cout << "Invalid choices, Please enter again:\n";
+				else{
+					cout << "Invalid choices, Please try again.\n";
+					clr  = false;
+				}
 			}
 		}
-		status = 0;
+		if(c == '1' || c == '2')status = 0;
 	}
 
 	void display (){
