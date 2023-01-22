@@ -149,7 +149,7 @@ public:
 
 			for (pair <int, int> p : current_block) 
 				buff[p.first][++p.second] = '#';
-			move_down ();
+			return move_down ();
 		}
 		else
 			check ();
