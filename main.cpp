@@ -101,12 +101,14 @@ public:
 		ifstream in;
 		in.open("score.txt");
 		in >> high_score;
+		in.close();
 	}
 
 	~game(){
 		ofstream out;
 		out.open("score.txt");
 		out << high_score;
+		out.close();
 	}
 
 	void hint (){
@@ -289,10 +291,16 @@ public:
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(size, '-'));
 
+		bool init = true;
 		while(1){
-			for(auto p : current_block)
-				buff[p.first][p.second] = '#';
 			clrscr();
+			if(init){
+				for(auto p : current_block){
+					if(buff[p.first][p.second] == '#')end_game();
+					buff[p.first][p.second] = '#';
+				}
+				init = false;
+			}
 			int n = 11;
 			vector<char> block_buffer[4];
 			fill(block_buffer, block_buffer+4, vector<char>(n, ' '));
@@ -332,7 +340,7 @@ public:
 			char c = getch();
 			if(c == 'a' || c == 'A')move_left();
 			else if(c == 'd' || c == 'D')move_right();
-			else if(c == 's' || c == 'S'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
+			else if(c == 's' || c == 'S'){move_down(); swap(next_block, current_block); next_block = get_random_block(); init = true;}
 			else if(c == '1')return;
 			else if(c == '2')hnt = true;
 			else if(c == '3')end_game();
