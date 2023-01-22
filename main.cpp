@@ -103,6 +103,12 @@ public:
 		in >> high_score;
 	}
 
+	~game(){
+		ofstream out;
+		out.open("score.txt");
+		out << high_score;
+	}
+
 	void hint (){
 		cout << "In each turn you can enter these charachters to move your block :\n";
 		cout << "A => moves the block one unit to right.\n";
@@ -119,6 +125,7 @@ public:
 			}
 			if (ok) {
 				score++;
+				high_score = max(score, high_score);
 				for (int j = 0; j < size; j++)
 					buff[i][j] = '-';
 				for (int j = i-1; j >= 0; j--) {
