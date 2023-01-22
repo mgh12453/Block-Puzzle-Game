@@ -254,13 +254,24 @@ public:
 			for(char x : buff[i])
 				cout << (x == '-' ? ' ' : x);
 			print(' ', 12);
-			if(i == 0)print('~', 13);
-			else if(i == 1){ cout << "* Retry (1) *"; print(' ', 4); cout << "Score: " << score;}
-			else if(i == 2) cout << "* Hint  (2) *";
-			else if(i == 3){ cout << "* Exit  (3) *"; print(' ', 4); cout << "High score: " << high_score;}
+			if(i == 0){print('~', 13); print(' ', 4); print('~', 19);}
+			else if(i == 1){ 
+				cout << "* Retry (1) *"; print(' ', 4); 
+				cout << "* Score: " << (score > 9 ? to_string(score) : to_string(score)+' ');
+				print(' ', 7); cout << "*";
+			}
+			else if(i == 2){ 
+				cout << "* Hint  (2) *";
+				print(' ', 4); cout << "*"; print(' ', 17); cout << "*"; 
+			}
+			else if(i == 3){ 
+				cout << "* Exit  (3) *"; print(' ', 4); 
+				cout << "* High score: " << (high_score > 9 ? to_string(high_score) : to_string(high_score)+' ');
+				print(' ', 2); cout << "*";
+			}
 			cout << '\n';
 		}
-		print(' ', 23+n); print('~', 13); cout << '\n'; 
+		print(' ', 23+n); print('~', 13); print(' ', 4); print('~', 19); cout << '\n'; 
 		getch();
 		cout << '\n';
 	}
