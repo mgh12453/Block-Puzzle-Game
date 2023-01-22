@@ -36,9 +36,9 @@ int rnd(int l, int r){
 }
 
 vector< pair< int , int > > get_random_block(){
-	vector <vector <pair <int, int> > > simple;
-    vector <vector <pair <int, int> > > medium;
-    vector <vector <pair <int, int> > >   hard;
+	vector <block> simple;
+    vector <block> medium;
+    vector <block>   hard;
     int sz = (SIZE_OF_BOARD - 1) / 2;
     simple.push_back ({{0, sz}});
 
@@ -73,7 +73,7 @@ vector< pair< int , int > > get_random_block(){
     hard.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}, {1, sz+1}});
     hard.push_back ({{0, sz+1}, {1, sz-1}, {1, sz}, {1, sz+1}});
 
-    vector< pair< int , int > > v;
+    block v;
     int x = rnd(1, EASY_POSIBILITY + MEDIUM_POSIBILITY + HARD_POSIBILITY);
     if(x < EASY_POSIBILITY) v = simple[rnd(0, simple.size())];
  	else if(x < EASY_POSIBILITY + MEDIUM_POSIBILITY) v = medium[rnd(0, medium.size())];
@@ -85,6 +85,7 @@ vector< pair< int , int > > get_random_block(){
 class game
 {
 private:
+	block current_block;
 	vector<vector<char>> buff;
 	int size;
 	int status = -1;
@@ -115,7 +116,7 @@ public:
 				buff[p.first][p.second] = '-';
 
 			for (pair <int, int> p : current_block) 
-				buff[p.first][--p.seond] = '#';
+				buff[p.first][--p.second] = '#';
 		}
 		check ();
 	}
@@ -131,7 +132,7 @@ public:
 				buff[p.first][p.second] = '-';
 
 			for (pair <int, int> p : current_block) 
-				buff[p.first][++p.seond] = '#';
+				buff[p.first][++p.second] = '#';
 		}
 		check ();
 	}
@@ -147,7 +148,7 @@ public:
 				buff[p.first][p.second] = '-';
 
 			for (pair <int, int> p : current_block) 
-				buff[p.first][++p.seond] = '#';
+				buff[p.first][++p.second] = '#';
 			move_down ();
 		}
 		else
