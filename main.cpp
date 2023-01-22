@@ -11,23 +11,23 @@ void print(char c, int cnt){while(cnt--)cout << c;}
 void clrscr(){system("clear");}
 
 char getch() {
-        char buf = 0;
-        struct termios old = {0};
-        if (tcgetattr(0, &old) < 0)
-                perror("tcsetattr()");
-        old.c_lflag &= ~ICANON;
-        old.c_lflag &= ~ECHO;
-        old.c_cc[VMIN] = 1;
-        old.c_cc[VTIME] = 0;
-        if (tcsetattr(0, TCSANOW, &old) < 0)
-                perror("tcsetattr ICANON");
-        if (read(0, &buf, 1) < 0)
-                perror ("read()");
-        old.c_lflag |= ICANON;
-        old.c_lflag |= ECHO;
-        if (tcsetattr(0, TCSADRAIN, &old) < 0)
-                perror ("tcsetattr ~ICANON");
-        return (buf);
+    char buf = 0;
+    struct termios old = {0};
+    if (tcgetattr(0, &old) < 0)
+            perror("tcsetattr()");
+    old.c_lflag &= ~ICANON;
+    old.c_lflag &= ~ECHO;
+    old.c_cc[VMIN] = 1;
+    old.c_cc[VTIME] = 0;
+    if (tcsetattr(0, TCSANOW, &old) < 0)
+            perror("tcsetattr ICANON");
+    if (read(0, &buf, 1) < 0)
+            perror ("read()");
+    old.c_lflag |= ICANON;
+    old.c_lflag |= ECHO;
+    if (tcsetattr(0, TCSADRAIN, &old) < 0)
+            perror ("tcsetattr ~ICANON");
+    return (buf);
 }
 
 int rnd(int l, int r){
@@ -87,17 +87,15 @@ class game
 private:
 	block current_block = get_random_block(), next_block = get_random_block();
 	vector<vector<char>> buff;
-	int size;
 	int score = 0;
 	int high_score = 0;
 	int status = -1;
 public:
 	game(){
 		status = -1;
-		size = SIZE_OF_BOARD;
 		buff.clear();
-		for(int i = 0; i < size; i ++)
-			buff.push_back(vector<char>(size, '-'));
+		for(int i = 0; i < SIZE_OF_BOARD; i ++)
+			buff.push_back(vector<char>(SIZE_OF_BOARD, '-'));
 		ifstream in;
 		in.open("score.txt");
 		in >> high_score;
@@ -119,16 +117,16 @@ public:
 	}
 
 	void check (){
-		for (int i = size-1; i >= 0; i--){
+		for (int i = SIZE_OF_BOARD-1; i >= 0; i--){
 			bool ok = 1;
-			for (int j = 0; j < size; j++){
+			for (int j = 0; j < SIZE_OF_BOARD; j++){
 				if (buff[i][j] != '#')
 					ok = 0;
 			}
 			if (ok) {
 				score++;
 				high_score = max(score, high_score);
-				for (int j = 0; j < size; j++)
+				for (int j = 0; j < SIZE_OF_BOARD; j++)
 					buff[i][j] = '-';
 				for (int j = i-1; j >= 0; j--) {
 					swap (buff[j], buff[j+1]);
@@ -162,7 +160,7 @@ public:
 		for (pair <int, int> &p : current_block) 
 			buff[p.first][p.second] = '-';
 		for (pair <int, int> &p : current_block) {
-			if (p.second >= size-1 or buff[p.first][p.second+1] != '-')
+			if (p.second >= SIZE_OF_BOARD-1 or buff[p.first][p.second+1] != '-')
 				ok = 0;
 		}
 		for (pair <int, int> &p : current_block) 
@@ -183,7 +181,7 @@ public:
 		for (pair <int, int> &p : current_block) 
 		 	buff[p.first][p.second] = '-';
 		for (pair <int, int> &p : current_block) 
-		 	if (p.first >= size-1 or buff[p.first+1][p.second] != '-')
+		 	if (p.first >= SIZE_OF_BOARD-1 or buff[p.first+1][p.second] != '-')
 				ok = 0;
 		for (pair <int, int> &p : current_block) 
 			buff[p.first][p.second] = '#';
@@ -279,6 +277,10 @@ public:
 			cout.flush();
 			this_thread::sleep_for(chrono::milliseconds(250));
 		}
+		ofstream out;
+		out.open("score.txt");
+		out << high_score;
+		out.close();
 		exit(0);
 	}
 
@@ -288,8 +290,8 @@ public:
 		score = 0;
 		next_block = get_random_block(); current_block = get_random_block();
 		buff.clear();
-		for(int i = 0; i < size; i ++)
-			buff.push_back(vector<char>(size, '-'));
+		for(int i = 0; i < SIZE_OF_BOARD; i ++)
+			buff.push_back(vector<char>(SIZE_OF_BOARD, '-'));
 
 		bool init = true;
 		while(1){
@@ -303,9 +305,9 @@ public:
 			}
 			int n = 11;
 			vector<char> block_buffer[4];
-			fill(block_buffer, block_buffer+4, vector<char>(n, ' '));
+			fill(block_buffer, block_buffer+5, vector<char>(n, ' '));
 			for(auto p : next_block)
-				block_buffer[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
+				block_buffer[p.first+1][p.second] = '#';
 			for(int i = 0; i < 4; i ++){
 				if(i != 2)print(' ', 11);
 				else cout << "Next block:";	
