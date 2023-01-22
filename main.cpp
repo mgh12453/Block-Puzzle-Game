@@ -88,6 +88,7 @@ private:
 	block current_block = get_random_block(), next_block = get_random_block();
 	vector<vector<char>> buff;
 	int size;
+	int score = 0;
 	int status = -1;
 public:
 	game(){
@@ -97,8 +98,37 @@ public:
 			buff.push_back(vector<char>(' ', size));
 	}
 
+<<<<<<< HEAD
 	void check (){
+=======
+	void start(){
 
+	}
+
+	void hint (){
+		cout << "In each turn you can enter these charachters to move your block :\n";
+		cout << "a => moves the block one unit to right.\n";
+		cout << "d => moves the block one unit to left.\n";
+		cout << "s => moves the block down to reach the minimum height.\n";
+	}
+>>>>>>> refs/remotes/origin/main
+
+	void check (){
+		for (int i = size-1; i >= 0; i--){
+			bool ok = 1;
+			for (int j = 0; j < size; j++){
+				if (buff[i][j] != '#')
+					ok = 0;
+			}
+			if (ok) {
+				score++;
+				for (int j = 0; j < size; j++)
+					buff[i][j] = '-';
+				for (int j = i-1; j >= 0; j--) {
+					swap (buff[j], buff[j+1]);
+				}
+			}
+		}
 	}
 
 	void move_left (){
@@ -149,10 +179,6 @@ public:
 		}
 		else
 			check ();
-	}
-
-	void hint (){
-
 	}
 
 	void display_main_menu(){
