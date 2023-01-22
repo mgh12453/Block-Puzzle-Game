@@ -325,7 +325,7 @@ public:
 			char c = getch();
 			if(c == 'a' || c == 'A')move_left();
 			else if(c == 'd' || c == 'D')move_right();
-			else if(c == 'c' || c == 'C'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
+			else if(c == 's' || c == 'S'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
 			else if(c == '1')return;
 			else if(c == '2')hnt = true;
 			else if(c == '3')end_game();
