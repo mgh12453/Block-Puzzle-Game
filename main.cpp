@@ -85,7 +85,7 @@ vector< pair< int , int > > get_random_block(){
 class game
 {
 private:
-	block current_block;
+	block current_block = get_random_block(), next_block = get_random_block();
 	vector<vector<char>> buff;
 	int size;
 	int status = -1;
@@ -95,10 +95,6 @@ public:
 		size = SIZE_OF_BOARD;
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(' ', size));
-	}
-
-	void start(){
-
 	}
 
 	void check (){
@@ -223,6 +219,31 @@ public:
 			}
 		}
 		if(c == '1' || c == '2')status = -1;
+	}
+
+
+	void start(){
+		clrscr();
+		cout << "Next block:";
+		int n = 11;
+		vector<char> buff[4];
+		fill(buff, buff+4, vector<char>(n, '-'));
+		for(auto p : next_block)//cout << p.first << ' ' << p.second << '\n';
+			buff[p.first][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
+		for(int i = 0; i < 4; i ++){
+			if(i)print(' ', 11);
+			for(auto x : buff[i])
+				cout << x;
+			print(' ', 12);
+			if(i == 0)print('~', 13);
+			else if(i == 1) cout << "* Retry (1) *";
+			else if(i == 2) cout << "* Hint  (2) *";
+			else if(i == 3) cout << "* Exit  (3) *";
+			cout << '\n';
+		}
+		print(' ', 23+n); print('~', 13); cout << '\n'; 
+		getch();
+		cout << '\n';
 	}
 
 	void display (){
