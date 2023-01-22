@@ -6,6 +6,17 @@ const int SIZE_OF_BOARD = 11;
 const float EASY_POSIBILITY, MEDIUM_POSIBILITY, HARD_POSIBILITY; 
 inline void print(char c, int cnt)while(cnt--)cout << c;
 
+class block {
+private:
+	vector <vector <pair <int, int> > 	 simple;
+	vector <vector <pair <int, int> > 	average;
+	vector <vector <pair <int, int> > difficult;
+public:	
+	block(){
+		
+	}
+}
+
 class game
 {
 private:
