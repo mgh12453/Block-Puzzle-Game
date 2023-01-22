@@ -72,6 +72,7 @@ public:
     }
 };
 
+
 class game
 {
 private:
@@ -148,10 +149,33 @@ public:
 				print('*', 35);
 				cout << "\n*  Settings applied succsesfully  *" << endl;
 				print('*', 35); cout << endl;
-				sleep(3000);
+				sleep(1);
 				clrscr();
+				break;
+			}
+			else if(c == 2){
+				cout << "Please enter posibilities (<easy>, <medium>, <hard>) and size of board.";
+				float a, b, c;
+				int x;
+				cin >> a >> b >> c >> x;
+				if(x > 11){
+					EASY_POSIBILITY = a; MEDIUM_POSIBILITY = b; HARD_POSIBILITY = c;
+					SIZE_OF_BOARD = x;
+					clrscr();
+					print('*', 35);
+					cout << "\n*  Settings applied succsesfully  *" << endl;
+					print('*', 35); cout << endl;
+					sleep(1);
+					clrscr();
+					break;
+				}
+			}
+			else {
+				clrscr();
+				cout << "Invalid choices, Please enter again:\n";
 			}
 		}
+		status = 0;
 	}
 
 	void display (){
