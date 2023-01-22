@@ -58,7 +58,8 @@ public:
 	}
 
 	void display_main_menu(){
-		
+		print('*', 7);
+		cout << "* "	
 	}
 
 	void display_choose_menu(){
