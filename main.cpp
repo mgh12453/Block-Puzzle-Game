@@ -95,8 +95,10 @@ public:
 	game(){
 		status = -1;
 		size = SIZE_OF_BOARD;
+		buff.clear();
 		for(int i = 0; i < size; i ++)
-			buff.push_back(vector<char>(' ', size));
+			buff.push_back(vector<char>(size, '-'));
+
 	}
 
 	void hint (){
@@ -246,7 +248,7 @@ public:
 		int n = 11;
 		vector<char> block_buffer[4];
 		fill(block_buffer, block_buffer+4, vector<char>(n, ' '));
-		for(auto p : next_block)//cout << p.first << ' ' << p.second << '\n';
+		for(auto p : next_block)
 			block_buffer[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
 		for(int i = 0; i < 4; i ++){
 			if(i != 2)print(' ', 11);
@@ -273,9 +275,9 @@ public:
 		}
 		print(' ', 23+n); print('~', 13); print(' ', 4); print('~', 19); cout << '\n'; 
 		
-		for(auto v: buff){
-			for(auto c : v)cout << (c == ' ' ? '-' : c);
-			if(!v.empty())cout << '\n';
+		for(int i = 0 ; i < buff.size() ; i ++){
+			for(auto c : buff[i])cout << c;
+			cout << '\n';
 		}
 		getch();
 	}
