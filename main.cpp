@@ -127,15 +127,19 @@ public:
 
 	void move_left (){
 		bool ok = 1;
-		for (pair <int, int> p : current_block) {
-			if (p.second <= 0 && buff[p.first][p.second-1] != '-')
+		for (pair <int, int> &p : current_block) 
+			buff[p.first][p.second] = '-';
+		for (pair <int, int> &p : current_block) {
+			if (p.second <= 0 or buff[p.first][p.second-1] != '-')
 				ok = 0;
 		}
-		if (ok) {
-			for (pair <int, int> p : current_block) 
+		for (pair <int, int> &p : current_block) 
+			buff[p.first][p.second] = '#';
+		if (ok == 1) {
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][--p.second] = '#';
 		}
 		check ();
@@ -143,15 +147,19 @@ public:
 
 	void move_right (){
 		bool ok = 1;
-		for (pair <int, int> p : current_block) {
-			if (p.second >= size-1 && buff[p.first][p.second+1] != '-')
+		for (pair <int, int> &p : current_block) 
+			buff[p.first][p.second] = '-';
+		for (pair <int, int> &p : current_block) {
+			if (p.second >= size-1 or buff[p.first][p.second+1] != '-')
 				ok = 0;
 		}
+		for (pair <int, int> &p : current_block) 
+			buff[p.first][p.second] = '#';
 		if (ok) {
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][++p.second] = '#';
 		}
 		check ();
@@ -159,15 +167,18 @@ public:
 
 	void move_down (){
 		bool ok = 1;
-		for (pair <int, int> p : current_block) {
-			if (p.first >= size-1 && buff[p.first+1][p.second] != '-')
+		for (pair <int, int> &p : current_block) 
+		 	buff[p.first][p.second] = '-';
+		for (pair <int, int> &p : current_block) 
+		 	if (p.first >= size-1 or buff[p.first+1][p.second] != '-')
 				ok = 0;
-		}
+		for (pair <int, int> &p : current_block) 
+			buff[p.first][p.second] = '#';
 		if (ok) {
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[++p.first][p.second] = '#';
 			return move_down ();
 		}
@@ -290,7 +301,7 @@ public:
 			char c = getch();
 			if(c == 'a' || c == 'A')move_left();
 			else if(c == 'd' || c == 'D')move_right();
-			else if(c == 'c' || c == 'C'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
+			else if(c == 's' || c == 'S'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
 		}
 	}
 
