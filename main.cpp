@@ -30,13 +30,13 @@ char getch() {
     return (buf);
 }
 
-int rnd(int l, int r){
-	srand(time(NULL));
-	return (rand()%(r-l))+l;
+int rnd(int r){
+    srand(time(NULL));
+    return (rand()%r);
 }
 
 vector< pair< int , int > > get_random_block(){
-	vector <block> simple;
+    vector <block> simple;
     vector <block> medium;
     vector <block>   hard;
     int sz = (SIZE_OF_BOARD - 1) / 2;
@@ -74,10 +74,10 @@ vector< pair< int , int > > get_random_block(){
     hard.push_back ({{0, sz+1}, {1, sz-1}, {1, sz}, {1, sz+1}});
 
     block v;
-    int x = rnd(0, EASY_POSIBILITY + MEDIUM_POSIBILITY + HARD_POSIBILITY);
-    if(x < EASY_POSIBILITY) v = simple[rnd(0, simple.size())];
- 	else if(x < EASY_POSIBILITY + MEDIUM_POSIBILITY) v = medium[rnd(0, medium.size())];
-    else v = hard[rnd(0, hard.size())];
+    int x = rnd(EASY_POSIBILITY + MEDIUM_POSIBILITY + HARD_POSIBILITY);
+    if(x < EASY_POSIBILITY) v = simple[rnd(simple.size())];
+    else if(x < EASY_POSIBILITY + MEDIUM_POSIBILITY) v = medium[rnd(medium.size())];
+    else v = hard[rnd(hard.size())];
     return v;
 }
 
@@ -102,19 +102,19 @@ public:
 		in.close();
 	}
 
-	~game(){
-		ofstream out;
-		out.open("score.txt");
-		out << high_score;
-		out.close();
-	}
+    ~game(){
+        ofstream out;
+        out.open("score.txt");
+        out << high_score;
+        out.close();
+    }
 
-	void hint (){
-		cout << "In each turn you can enter these charachters to move your block :\n";
-		cout << "A => moves the block one unit to right.\n";
-		cout << "D => moves the block one unit to left.\n";
-		cout << "S => moves the block down to reach the minimum height.\n";
-	}
+    void hint (){
+        cout << "In each turn you can enter these charachters to move your block :\n";
+        cout << "A => moves the block one unit to right.\n";
+        cout << "D => moves the block one unit to left.\n";
+        cout << "S => moves the block down to reach the minimum height.\n";
+    }
 
 	void check (){
 		for (int i = SIZE_OF_BOARD-1; i >= 0; i--){
@@ -135,25 +135,25 @@ public:
 		}
 	}
 
-	void move_left (){
-		bool ok = 1;
-		for (pair <int, int> &p : current_block) 
-			buff[p.first][p.second] = '-';
-		for (pair <int, int> &p : current_block) {
-			if (p.second <= 0 or buff[p.first][p.second-1] != '-')
-				ok = 0;
-		}
-		for (pair <int, int> &p : current_block) 
-			buff[p.first][p.second] = '#';
-		if (ok == 1) {
-			for (pair <int, int> &p : current_block) 
-				buff[p.first][p.second] = '-';
+    void move_left (){
+        bool ok = 1;
+        for (pair <int, int> &p : current_block) 
+            buff[p.first][p.second] = '-';
+        for (pair <int, int> &p : current_block) {
+            if (p.second <= 0 or buff[p.first][p.second-1] != '-')
+                ok = 0;
+        }
+        for (pair <int, int> &p : current_block) 
+            buff[p.first][p.second] = '#';
+        if (ok == 1) {
+            for (pair <int, int> &p : current_block) 
+                buff[p.first][p.second] = '-';
 
-			for (pair <int, int> &p : current_block) 
-				buff[p.first][--p.second] = '#';
-		}
-		check ();
-	}
+            for (pair <int, int> &p : current_block) 
+                buff[p.first][--p.second] = '#';
+        }
+        check ();
+    }
 
 	void move_right (){
 		bool ok = 1;
@@ -169,14 +169,14 @@ public:
 			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> &p : current_block) 
-				buff[p.first][++p.second] = '#';
-		}
-		check ();
-	}
+            for (pair <int, int> &p : current_block) 
+                buff[p.first][++p.second] = '#';
+        }
+        check ();
+    }
 
-	void move_down (){
-		bool ok = 1;
+    void move_down (){
+        bool ok = 1;
 
 		for (pair <int, int> &p : current_block) 
 		 	buff[p.first][p.second] = '-';
@@ -189,86 +189,85 @@ public:
 			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> &p : current_block) 
-				buff[++p.first][p.second] = '#';
-			return move_down ();
-		}
-		else
-			check ();
-	}
+            for (pair <int, int> &p : current_block) 
+                buff[++p.first][p.second] = '#';
+            return move_down ();
+        }
+        check ();
+    }
 
-	void display_main_menu(){
-		clrscr();
-		print('~', 26);	
-		cout << "\n*"; print(' ', 24); cout << "*\n";
-		cout << "*  Start Game       (1)  *\n";
-		cout << "*  Select Difficulty(2)  *\n";
-		cout << "*  Exit             (3)  *\n";	
-		cout << '*'; print(' ', 24);  cout << "*\n";
-		print('~', 26); cout << '\n';
-		while(1){
-			char c;
-			c = getch();
-			if(c >= '1' && c <= '3'){
-				status = c-'1';
-				return;
-			}
-		}
-	}
+    void display_main_menu(){
+        clrscr();
+        print('~', 26); 
+        cout << "\n*"; print(' ', 24); cout << "*\n";
+        cout << "*  Start Game       (1)  *\n";
+        cout << "*  Select Difficulty(2)  *\n";
+        cout << "*  Exit             (3)  *\n"; 
+        cout << '*'; print(' ', 24);  cout << "*\n";
+        print('~', 26); cout << '\n';
+        while(1){
+            char c;
+            c = getch();
+            if(c >= '1' && c <= '3'){
+                status = c-'1';
+                return;
+            }
+        }
+    }
 
-	void display_difficulty_menu(){
-		clrscr();
-		print('~', 29);	
-		cout << "\n*"; print(' ', 27); cout << "*\n";
-		cout << "* Please select difficulty: *\n";
-		cout << "* Default               (1) *\n";
-		cout << "* Custom                (2) *\n";	
-		cout << '*'; print(' ', 27);  cout << "*\n";
-		print('~', 29); cout << '\n';
-		char c;
-		c = getch();
-		if(c == '1'){
-			clrscr();
-			print('~', 35);
-			cout << "\n*  Settings applied succsesfully  *" << endl;
-			print('~', 35); cout << endl;
-			sleep(1);
-			clrscr();
-		}
-		else if(c == '2'){
-			bool clr = true;
-			while(1){
-				if(clr)clrscr();
-				cout << "Please enter posibilities (<easy>, <medium>, <hard>) and size of board:\n";
-				float a, b, c;
-				int x;
-				cin >> a >> b >> c >> x;
-				if(x > 11){
-					EASY_POSIBILITY = a; MEDIUM_POSIBILITY = b; HARD_POSIBILITY = c;
-					SIZE_OF_BOARD = x;
-					clrscr();
-					print('~', 35);
-					cout << "\n*  Settings applied succsesfully  *" << endl;
-					print('~', 35); cout << endl;
-					sleep(1);
-					clrscr();
-					break;
-				}
-				else{
-					cout << "Invalid choices, Please try again.\n";
-					clr  = false;
-				}
-			}
-		}
-		if(c == '1' || c == '2')status = -1;
-	}
+    void display_difficulty_menu(){
+        clrscr();
+        print('~', 29); 
+        cout << "\n*"; print(' ', 27); cout << "*\n";
+        cout << "* Please select difficulty: *\n";
+        cout << "* Default               (1) *\n";
+        cout << "* Custom                (2) *\n";  
+        cout << '*'; print(' ', 27);  cout << "*\n";
+        print('~', 29); cout << '\n';
+        char c;
+        c = getch();
+        if(c == '1'){
+            clrscr();
+            print('~', 35);
+            cout << "\n*  Settings applied succsesfully  *" << endl;
+            print('~', 35); cout << endl;
+            sleep(1);
+            clrscr();
+        }
+        else if(c == '2'){
+            bool clr = true;
+            while(1){
+                if(clr)clrscr();
+                cout << "Please enter posibilities (<easy>, <medium>, <hard>) and size of board:\n";
+                float a, b, c;
+                int x;
+                cin >> a >> b >> c >> x;
+                if(x > 11){
+                    EASY_POSIBILITY = a; MEDIUM_POSIBILITY = b; HARD_POSIBILITY = c;
+                    SIZE_OF_BOARD = x;
+                    clrscr();
+                    print('~', 35);
+                    cout << "\n*  Settings applied succsesfully  *" << endl;
+                    print('~', 35); cout << endl;
+                    sleep(1);
+                    clrscr();
+                    break;
+                }
+                else{
+                    cout << "Invalid choices, Please try again.\n";
+                    clr  = false;
+                }
+            }
+        }
+        if(c == '1' || c == '2')status = -1;
+    }
 
 	void end_game(){
 		clrscr();
 		print('~', 35);
 		cout << "\n*  Ending game, hope to enjoy ;)  *" << endl;
 		cout << "*                                 *" << endl;
-		cout << "*    Your Score: " << (high_score > 9 ? to_string(score) : to_string(score)+' ') << "                *" << endl;
+		cout << "*    Your Score: " << (high_score > 9 ? to_string(score) : to_string(score)+' ') << "               *" << endl;
 		cout << "*    Your Highest Score: " << (high_score > 9 ? to_string(high_score) : to_string(high_score)+' ') << "       *" << endl;
 		cout << "*                                 *" << endl;
 		print('~', 35); cout << endl << endl;
@@ -339,32 +338,32 @@ public:
 			}
 			if(hnt)hint();
 
-			char c = getch();
-			if(c == 'a' || c == 'A')move_left();
-			else if(c == 'd' || c == 'D')move_right();
-			else if(c == 's' || c == 'S'){move_down(); swap(next_block, current_block); next_block = get_random_block(); init = true;}
-			else if(c == '1')return;
-			else if(c == '2')hnt = true;
-			else if(c == '3')end_game();
-		}
-	}
+            char c = getch();
+            if(c == 'a' || c == 'A')move_left();
+            else if(c == 'd' || c == 'D')move_right();
+            else if(c == 's' || c == 'S'){move_down(); swap(next_block, current_block); next_block = get_random_block(); init = true;}
+            else if(c == '1')return;
+            else if(c == '2')hnt = true;
+            else if(c == '3')end_game();
+        }
+    }
 
-	void display (){
-		if(status == -1)display_main_menu();
-		if(status == 0)start();
-		if(status == 1)display_difficulty_menu();
-		if(status == 2)end_game();
-	}
+    void display (){
+        if(status == -1)display_main_menu();
+        if(status == 0)start();
+        if(status == 1)display_difficulty_menu();
+        if(status == 2)end_game();
+    }
 
-	int get_status(){
-		return	status;
-	}
+    int get_status(){
+        return  status;
+    }
 };
 
 int main(){
-	game g;
-	while (true) {
-		g.display();
-	}
-	return 0;
+    game g;
+    while (true) {
+        g.display();
+    }
+    return 0;
 }
