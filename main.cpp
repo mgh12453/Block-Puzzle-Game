@@ -89,6 +89,7 @@ private:
 	vector<vector<char>> buff;
 	int size;
 	int score = 0;
+	int high_score = 0;
 	int status = -1;
 public:
 	game(){
@@ -245,7 +246,7 @@ public:
 		cout << "Next block:";
 		int n = 11;
 		vector<char> buff[4];
-		fill(buff, buff+4, vector<char>(n, '-'));
+		fill(buff, buff+4, vector<char>(n, ' '));
 		for(auto p : next_block)//cout << p.first << ' ' << p.second << '\n';
 			buff[p.first][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
 		for(int i = 0; i < 4; i ++){
@@ -254,9 +255,9 @@ public:
 				cout << x;
 			print(' ', 12);
 			if(i == 0)print('~', 13);
-			else if(i == 1) cout << "* Retry (1) *";
+			else if(i == 1){ cout << "* Retry (1) *"; print(' ', 4); cout << "Score: " << score;}
 			else if(i == 2) cout << "* Hint  (2) *";
-			else if(i == 3) cout << "* Exit  (3) *";
+			else if(i == 3){ cout << "* Exit  (3) *"; print(' ', 4); cout << "High score: " << high_score;}
 			cout << '\n';
 		}
 		print(' ', 23+n); print('~', 13); cout << '\n'; 
