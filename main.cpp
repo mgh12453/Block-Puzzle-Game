@@ -78,10 +78,10 @@ class game
 private:
 	vector<vector<char>> buff;
 	int size;
-	int status = 0;
+	int status = -1;
 public:
 	game(){
-		status = 0;
+		status = -1;
 		size = SIZE_OF_BOARD;
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(' ', size));
@@ -176,13 +176,14 @@ public:
 				}
 			}
 		}
-		if(c == '1' || c == '2')status = 0;
+		if(c == '1' || c == '2')status = -1;
 	}
 
 	void display (){
-		if(status == 0)display_main_menu();
+		if(status == -1)display_main_menu();
+		if(status == 0)start();
 		if(status == 1)display_difficulty_menu();
-		if(status == 2)start();
+		if(status == 2)exit(0);
 	}
 
 	int get_status(){
