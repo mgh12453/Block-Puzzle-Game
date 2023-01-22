@@ -198,8 +198,8 @@ public:
 		print('~', 29);	
 		cout << "\n*"; print(' ', 27); cout << "*\n";
 		cout << "* Please select difficulty: *\n";
-		cout << "*  Default             (1)  *\n";
-		cout << "*  Custom              (2)  *\n";	
+		cout << "* Default               (1) *\n";
+		cout << "* Custom                (2) *\n";	
 		cout << '*'; print(' ', 27);  cout << "*\n";
 		print('~', 29); cout << '\n';
 		char c;
