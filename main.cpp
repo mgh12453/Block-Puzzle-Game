@@ -96,17 +96,53 @@ public:
 	}
 
 	void move_left (){
+		bool ok = 1;
+		for (pair <int, int> p : current_block) {
+			if (p.second <= 0 && buff[p.first][p.second-1] != '-')
+				ok = 0;
+		}
+		if (ok) {
+			for (pair <int, int> p : current_block) 
+				buff[p.first][p.second] = '-';
 
+			for (pair <int, int> p : current_block) 
+				buff[p.first][--p.seond] = '#';
+		}
 		check ();
 	}
 
 	void move_right (){
+		bool ok = 1;
+		for (pair <int, int> p : current_block) {
+			if (p.second >= size-1 && buff[p.first][p.second+1] != '-')
+				ok = 0;
+		}
+		if (ok) {
+			for (pair <int, int> p : current_block) 
+				buff[p.first][p.second] = '-';
+
+			for (pair <int, int> p : current_block) 
+				buff[p.first][++p.seond] = '#';
+		}
 		check ();
 	}
 
 	void move_down (){
+		bool ok = 1;
+		for (pair <int, int> p : current_block) {
+			if (p.first >= size-1 && buff[p.first+1][p.second] != '-')
+				ok = 0;
+		}
+		if (ok) {
+			for (pair <int, int> p : current_block) 
+				buff[p.first][p.second] = '-';
 
-		check ();
+			for (pair <int, int> p : current_block) 
+				buff[p.first][++p.seond] = '#';
+			move_down ();
+		}
+		else
+			check ();
 	}
 
 	void hint (){
