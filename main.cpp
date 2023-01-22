@@ -114,13 +114,13 @@ public:
 
 	void display_main_menu(){
 		clrscr();
-		print('*', 26);	
+		print('~', 26);	
 		cout << "\n*"; print(' ', 24); cout << "*\n";
-		cout << "*  (1)Start Game         *\n";
-		cout << "*  (2)Select Difficulty  *\n";
-		cout << "*  (3)Exit               *\n";	
+		cout << "*  Start Game       (1)  *\n";
+		cout << "*  Select Difficulty(2)  *\n";
+		cout << "*  Exit             (3)  *\n";	
 		cout << '*'; print(' ', 24);  cout << "*\n";
-		print('*', 26); cout << '\n';
+		print('~', 26); cout << '\n';
 		while(1){
 			char c;
 			c = getch();
