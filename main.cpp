@@ -2,6 +2,10 @@
 
 using namespace std;
 
+const int SIZE_OF_BOARD = 11;
+const float EASY_POSIBILITY, MEDIUM_POSIBILITY, HARD_POSIBILITY; 
+inline void print(char c, )
+
 class game
 {
 private:
@@ -9,9 +13,9 @@ private:
 	int size;
 	int status = 0;
 public:
-	game(int init_size = 11){
+	game(){
 		status = 0;
-		size = init_size;
+		size = SIZE_OF_BOARD;
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(' ', size));
 	}
@@ -42,6 +46,14 @@ public:
 
 	}
 
+	void display_main_menu(){
+		
+	}
+
+	void display_choose_menu(){
+
+	}
+
 	void display (){
 		if(status == 0)display_main_menu();
 		if(status == 1)display_choose_menu();
@@ -50,15 +62,6 @@ public:
 
 	int get_status(){
 		return	status;
-	}
-
-
-	void display_main_menu(){
-
-	}
-
-	void display_choose_menu(){
-
 	}
 };
 
