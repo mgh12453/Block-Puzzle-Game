@@ -120,7 +120,7 @@ public:
 				score++;
 				for (int j = 0; j < size; j++)
 					buff[i][j] = '-';
-				for (int j = i-1; j >= 0; j++) {
+				for (int j = i-1; j >= 0; j--) {
 					swap (buff[j], buff[j+1]);
 				}
 			}
