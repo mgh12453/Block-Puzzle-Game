@@ -244,14 +244,14 @@ public:
 	void start(){
 		clrscr();
 		int n = 11;
-		vector<char> buff[4];
-		fill(buff, buff+4, vector<char>(n, ' '));
+		vector<char> block_buffer[4];
+		fill(block_buffer, block_buffer+4, vector<char>(n, ' '));
 		for(auto p : next_block)//cout << p.first << ' ' << p.second << '\n';
-			buff[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
+			block_buffer[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
 		for(int i = 0; i < 4; i ++){
 			if(i != 2)print(' ', 11);
 			else cout << "Next block:";	
-			for(char x : buff[i])
+			for(char x : block_buffer[i])
 				cout << (x == '-' ? ' ' : x);
 			print(' ', 12);
 			if(i == 0){print('~', 13); print(' ', 4); print('~', 19);}
@@ -273,7 +273,7 @@ public:
 		}
 		print(' ', 23+n); print('~', 13); print(' ', 4); print('~', 19); cout << '\n'; 
 		
-		for(auto v: game::buff){
+		for(auto v: buff){
 			for(auto c : v)cout << (c == ' ' ? '-' : c);
 			cout << '\n';
 		}
