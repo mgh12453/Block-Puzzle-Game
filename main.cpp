@@ -303,7 +303,7 @@ public:
 				init = false;
 			}
 			int n = 11;
-			vector<char> block_buffer[4];
+			vector<char> block_buffer[5];
 			fill(block_buffer, block_buffer+5, vector<char>(n, ' '));
 			for(auto p : next_block)
 				block_buffer[p.first+1][p.second-(SIZE_OF_BOARD-n)/2] = '#';
