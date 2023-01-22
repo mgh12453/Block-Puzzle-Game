@@ -11,7 +11,7 @@ public:
 	game(int init_size = 11){
 		size = init_size;
 		for(int i = 0; i < size; i ++)
-			buff.push_back(vector<char>('-', size));
+			buff.push_back(vector<char>(' ', size));
 	}
 
 	void start(){
@@ -46,11 +46,20 @@ public:
 };
 
 
+class menu
+{
+	void display_main_menu(){
+
+	}
+
+	void display_choose_menu(){
+
+	}
+};
+
 int main(){
-	game* g;
+	game g;
 	while (true) {
-		string type;
-		cin >> type;
 
 	}
 	return 0;
