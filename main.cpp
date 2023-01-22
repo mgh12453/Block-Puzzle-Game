@@ -98,13 +98,16 @@ public:
 		buff.clear();
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(size, '-'));
+		ifstream in;
+		in.open("score.txt");
+		in >> high_score;
 	}
 
 	void hint (){
 		cout << "In each turn you can enter these charachters to move your block :\n";
-		cout << "a => moves the block one unit to right.\n";
-		cout << "d => moves the block one unit to left.\n";
-		cout << "s => moves the block down to reach the minimum height.\n";
+		cout << "A => moves the block one unit to right.\n";
+		cout << "D => moves the block one unit to left.\n";
+		cout << "S => moves the block down to reach the minimum height.\n";
 	}
 
 	void check (){
@@ -132,10 +135,10 @@ public:
 				ok = 0;
 		}
 		if (ok) {
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][--p.second] = '#';
 		}
 		check ();
@@ -148,10 +151,10 @@ public:
 				ok = 0;
 		}
 		if (ok) {
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][++p.second] = '#';
 		}
 		check ();
@@ -159,15 +162,15 @@ public:
 
 	void move_down (){
 		bool ok = 1;
-		for (pair <int, int> p : current_block) {
-			if (p.first >= size-1 && buff[p.first+1][p.second] != '-')
+		for (pair <int, int> &p : current_block) {
+			if (p.first >= size-1 || buff[p.first+1][p.second] != '-')
 				ok = 0;
 		}
 		if (ok) {
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[p.first][p.second] = '-';
 
-			for (pair <int, int> p : current_block) 
+			for (pair <int, int> &p : current_block) 
 				buff[++p.first][p.second] = '#';
 			return move_down ();
 		}
@@ -241,8 +244,26 @@ public:
 		if(c == '1' || c == '2')status = -1;
 	}
 
+	void end_game(){
+		clrscr();
+		print('~', 35);
+		cout << "\n*  Ending game, hope to enjoy ;)  *" << endl;
+		cout << "*                                 *" << endl;
+		cout << "*    Your Score: " << (high_score > 9 ? to_string(score) : to_string(score)+' ') << "                *" << endl;
+		cout << "*    Your Highest Score: " << (high_score > 9 ? to_string(high_score) : to_string(high_score)+' ') << "       *" << endl;
+		cout << "*                                 *" << endl;
+		print('~', 35); cout << endl << endl;
+		for (int i = 0; i < 16; i ++){
+			cout << ". ";
+			cout.flush();
+			this_thread::sleep_for(chrono::milliseconds(250));
+		}
+		exit(0);
+	}
+
 
 	void start(){
+		bool hnt = false;
 		score = 0;
 		next_block = get_random_block(); current_block = get_random_block();
 		buff.clear();
@@ -287,10 +308,15 @@ public:
 				for(auto c : buff[i])cout << c;
 				cout << '\n';
 			}
+			if(hnt)hint();
+
 			char c = getch();
 			if(c == 'a' || c == 'A')move_left();
 			else if(c == 'd' || c == 'D')move_right();
 			else if(c == 'c' || c == 'C'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
+			else if(c == '1')return;
+			else if(c == '2')hnt = true;
+			else if(c == '3')end_game();
 		}
 	}
 
@@ -298,7 +324,7 @@ public:
 		if(status == -1)display_main_menu();
 		if(status == 0)start();
 		if(status == 1)display_difficulty_menu();
-		if(status == 2)exit(0);
+		if(status == 2)end_game();
 	}
 
 	int get_status(){
