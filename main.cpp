@@ -98,20 +98,12 @@ public:
 			buff.push_back(vector<char>(' ', size));
 	}
 
-<<<<<<< HEAD
-	void check (){
-=======
-	void start(){
-
-	}
-
 	void hint (){
 		cout << "In each turn you can enter these charachters to move your block :\n";
 		cout << "a => moves the block one unit to right.\n";
 		cout << "d => moves the block one unit to left.\n";
 		cout << "s => moves the block down to reach the minimum height.\n";
 	}
->>>>>>> refs/remotes/origin/main
 
 	void check (){
 		for (int i = size-1; i >= 0; i--){
