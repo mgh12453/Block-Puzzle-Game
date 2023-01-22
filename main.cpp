@@ -243,16 +243,16 @@ public:
 
 	void start(){
 		clrscr();
-		cout << "Next block:";
 		int n = 11;
 		vector<char> buff[4];
 		fill(buff, buff+4, vector<char>(n, ' '));
 		for(auto p : next_block)//cout << p.first << ' ' << p.second << '\n';
 			buff[p.first][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
 		for(int i = 0; i < 4; i ++){
-			if(i)print(' ', 11);
-			for(auto x : buff[i])
-				cout << x;
+			if(i != 0)print(' ', 11);
+			else cout << "Next block:";	
+			for(char x : buff[i])
+				cout << (x == '-' ? ' ' : x);
 			print(' ', 12);
 			if(i == 0)print('~', 13);
 			else if(i == 1){ cout << "* Retry (1) *"; print(' ', 4); cout << "Score: " << score;}
