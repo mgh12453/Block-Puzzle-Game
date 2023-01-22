@@ -6,7 +6,7 @@ using namespace std;
 
 typedef vector< pair< int , int > > block;
 int SIZE_OF_BOARD = 11;
-float EASY_POSIBILITY = 1, MEDIUM_POSIBILITY = 1, HARD_POSIBILITY = 1; 
+int EASY_POSIBILITY = 1, MEDIUM_POSIBILITY = 1, HARD_POSIBILITY = 1; 
 void print(char c, int cnt){while(cnt--)cout << c;}
 void clrscr(){system("clear");}
 
