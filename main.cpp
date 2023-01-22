@@ -74,7 +74,7 @@ vector< pair< int , int > > get_random_block(){
     hard.push_back ({{0, sz+1}, {1, sz-1}, {1, sz}, {1, sz+1}});
 
     block v;
-    int x = rnd(1, EASY_POSIBILITY + MEDIUM_POSIBILITY + HARD_POSIBILITY);
+    int x = rnd(0, EASY_POSIBILITY + MEDIUM_POSIBILITY + HARD_POSIBILITY);
     if(x < EASY_POSIBILITY) v = simple[rnd(0, simple.size())];
  	else if(x < EASY_POSIBILITY + MEDIUM_POSIBILITY) v = medium[rnd(0, medium.size())];
     else v = hard[rnd(0, hard.size())];
