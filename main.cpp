@@ -31,7 +31,6 @@ char getch() {
 
 class block {
 private:
-<<<<<<< HEAD
     vector <vector <pair <int, int> > > simple;
     vector <vector <pair <int, int> > > medium;
     vector <vector <pair <int, int> > >   hard;
@@ -71,15 +70,6 @@ public:
         hard.push_back ({{0, sz-1}, {0, sz}, {0, sz+1}, {1, sz+1}});
         hard.push_back ({{0, sz+1}, {1, sz-1}, {1, sz}, {1, sz+1}});
     }
-=======
-	vector <vector <pair <int, int> > > 	 simple;
-	vector <vector <pair <int, int> > > 	average;
-	vector <vector <pair <int, int> > > difficult;
-public:	
-	block(){
-		
-	}
->>>>>>> 0033590 (mgh)
 };
 
 class game
