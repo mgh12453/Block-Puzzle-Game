@@ -98,7 +98,6 @@ public:
 		buff.clear();
 		for(int i = 0; i < size; i ++)
 			buff.push_back(vector<char>(size, '-'));
-
 	}
 
 	void hint (){
@@ -169,7 +168,7 @@ public:
 				buff[p.first][p.second] = '-';
 
 			for (pair <int, int> p : current_block) 
-				buff[p.first][++p.second] = '#';
+				buff[++p.first][p.second] = '#';
 			return move_down ();
 		}
 		else
@@ -244,42 +243,55 @@ public:
 
 
 	void start(){
-		clrscr();
-		int n = 11;
-		vector<char> block_buffer[4];
-		fill(block_buffer, block_buffer+4, vector<char>(n, ' '));
-		for(auto p : next_block)
-			block_buffer[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
-		for(int i = 0; i < 4; i ++){
-			if(i != 2)print(' ', 11);
-			else cout << "Next block:";	
-			for(char x : block_buffer[i])
-				cout << (x == '-' ? ' ' : x);
-			print(' ', 12);
-			if(i == 0){print('~', 13); print(' ', 4); print('~', 19);}
-			else if(i == 1){ 
-				cout << "* Retry (1) *"; print(' ', 4); 
-				cout << "* Score: " << (score > 9 ? to_string(score) : to_string(score)+' ');
-				print(' ', 7); cout << "*";
+		score = 0;
+		next_block = get_random_block(); current_block = get_random_block();
+		buff.clear();
+		for(int i = 0; i < size; i ++)
+			buff.push_back(vector<char>(size, '-'));
+
+		while(1){
+			for(auto p : current_block)
+				buff[p.first][p.second] = '#';
+			clrscr();
+			int n = 11;
+			vector<char> block_buffer[4];
+			fill(block_buffer, block_buffer+4, vector<char>(n, ' '));
+			for(auto p : next_block)
+				block_buffer[p.first+1][p.second-(SIZE_OF_BOARD-n-1)/2] = '#';
+			for(int i = 0; i < 4; i ++){
+				if(i != 2)print(' ', 11);
+				else cout << "Next block:";	
+				for(char x : block_buffer[i])
+					cout << (x == '-' ? ' ' : x);
+				print(' ', 12);
+				if(i == 0){print('~', 13); print(' ', 4); print('~', 19);}
+				else if(i == 1){ 
+					cout << "* Retry (1) *"; print(' ', 4); 
+					cout << "* Score: " << (score > 9 ? to_string(score) : to_string(score)+' ');
+					print(' ', 7); cout << "*";
+				}
+				else if(i == 2){ 
+					cout << "* Hint  (2) *";
+					print(' ', 4); cout << "*"; print(' ', 17); cout << "*"; 
+				}
+				else if(i == 3){ 
+					cout << "* Exit  (3) *"; print(' ', 4); 
+					cout << "* High score: " << (high_score > 9 ? to_string(high_score) : to_string(high_score)+' ');
+					print(' ', 2); cout << "*";
+				}
+				cout << '\n';
 			}
-			else if(i == 2){ 
-				cout << "* Hint  (2) *";
-				print(' ', 4); cout << "*"; print(' ', 17); cout << "*"; 
+			print(' ', 23+n); print('~', 13); print(' ', 4); print('~', 19); cout << '\n'; 
+			
+			for(int i = 0 ; i < buff.size() ; i ++){
+				for(auto c : buff[i])cout << c;
+				cout << '\n';
 			}
-			else if(i == 3){ 
-				cout << "* Exit  (3) *"; print(' ', 4); 
-				cout << "* High score: " << (high_score > 9 ? to_string(high_score) : to_string(high_score)+' ');
-				print(' ', 2); cout << "*";
-			}
-			cout << '\n';
+			char c = getch();
+			if(c == 'a' || c == 'A')move_left();
+			else if(c == 'd' || c == 'D')move_right();
+			else if(c == 'c' || c == 'C'){move_down(); swap(next_block, current_block); next_block = get_random_block();}
 		}
-		print(' ', 23+n); print('~', 13); print(' ', 4); print('~', 19); cout << '\n'; 
-		
-		for(int i = 0 ; i < buff.size() ; i ++){
-			for(auto c : buff[i])cout << c;
-			cout << '\n';
-		}
-		getch();
 	}
 
 	void display (){
